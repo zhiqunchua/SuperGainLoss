@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive 6-Month Weight Management Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        /* Custom Colors based on Blue & White Theme */
+        :root {
+            --primary-blue: #1E3A8A; /* Dark Blue */
+            --secondary-blue: #3B82F6; /* Medium Blue */
+            --light-blue-accent: #BFDBFE; /* Light Blue */
+            --background-white: #FFFFFF;
+            --text-dark: #1F2937; /* Dark Gray for readability */
+            --border-light: #E5E7EB; /* Light Gray for borders */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-white);
+            color: var(--text-dark);
+            line-height: 1.7; /* Improved line spacing */
+        }
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem; /* Space between icon and text */
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+        }
+        .section-header img {
+            width: 3rem; /* Larger icons */
+            height: 3rem;
+        }
+        .card {
+            background-color: var(--background-white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Slightly more prominent shadow */
+            margin-bottom: 1.5rem;
+        }
+        .back-to-top {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .back-to-top a {
+            background-color: var(--secondary-blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .back-to-top a:hover {
+            background-color: var(--primary-blue);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+        th {
+            background-color: var(--light-blue-accent);
+            color: var(--primary-blue);
+            font-weight: 700;
+            white-space: nowrap; /* Prevent wrapping in headers */
+        }
+        tr:nth-child(even) {
+            background-color: #F9FAFB; /* Slightly off-white for alternate rows */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 1.5rem auto;
+            height: 350px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .section-header img {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            th, td {
+                padding: 0.75rem;
+            }
+            .chart-container {
+                height: 300px;
+                padding: 1rem;
+            }
+        }
+        .exercise-detail img {
+            width: 100%;
+            max-width: 250px; /* Max width for exercise images */
+            height: auto;
+            border-radius: 0.5rem;
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            display: block; /* Ensures centering if needed by parent */
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .exercise-detail p {
+            margin-bottom: 0.5rem;
+        }
+        .exercise-detail a {
+            color: var(--secondary-blue);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .exercise-detail a:hover {
+            color: var(--primary-blue);
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+        .tab-button {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            background-color: var(--light-blue-accent);
+            color: var(--primary-blue);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            flex-grow: 1; /* Allow buttons to grow */
+            text-align: center;
+        }
+        .tab-button.active {
+            background-color: var(--secondary-blue);
+            color: white;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+        .tab-content {
+            display: none;
+            background-color: var(--background-white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .list-disc-styled {
+            list-style: disc; /* Force disc style */
+            padding-left: 1.5rem; /* Indent */
+        }
+        .list-disc-styled li {
+            margin-bottom: 0.75rem; /* Spacing between list items */
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <header class="bg-gradient-to-r from-blue-900 to-blue-600 text-white p-4 sticky top-0 z-50 shadow-lg" id="top">
+        <div class="container flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-3xl font-bold mb-2 sm:mb-0">Weight Management Program</h1>
+            <nav>
+                <ul class="flex flex-wrap justify-center space-x-4 text-lg">
+                    <li><a href="#overview" class="hover:text-blue-200 transition-colors duration-200">Overview</a></li>
+                    <li><a href="#principles" class="hover:text-blue-200 transition-colors duration-200">Principles</a></li>
+                    <li><a href="#nutrition" class="hover:text-blue-200 transition-colors duration-200">Nutrition</a></li>
+                    <li><a href="#training" class="hover:text-blue-200 transition-colors duration-200">Training</a></li>
+                    <li><a href="#progress" class="hover:text-blue-200 transition-colors duration-200">Progress</a></li>
+                    <li><a href="#reminders" class="hover:text-blue-200 transition-colors duration-200">Reminders</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-8">
+
+        <section id="overview" class="mb-12">
+            <h2 class="text-4xl font-semibold section-header"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-cPy2UBX42UeZ8Nj4mY9e7LUU/user-WoSBJbLQ7UetF2ctTxOAwfEH/img-Xp2yW1jEN9E4EXic8p0S2PNr.png" alt="Program Overview Icon"> Program Overview</h2>
+            <div class="card">
+                <p class="text-lg mb-4">This comprehensive 6-month weight management program is specifically designed for endomorph individuals, targeting a sustainable fat reduction of 0.5-1kg per week while enhancing overall body composition. The plan integrates strategic nutritional guidelines with a structured exercise regimen, tailored to address the metabolic characteristics often associated with this somatotype.</p>
+                <p class="text-lg mb-6">It is imperative to note that while this program offers a detailed framework, individual physiological responses may vary. Professional consultation with a medical practitioner, registered dietitian, or certified fitness expert is highly recommended prior to commencing any new dietary or exercise regimen to ensure its appropriateness for individual health status and to optimize its efficacy.</p>
+                <div class="bg-blue-50 p-6 rounded-lg shadow-inner border border-blue-200">
+                    <h3 class="text-2xl font-medium text-blue-800 mb-4">Important Considerations:</h3>
+                    <ul class="list-disc-styled text-md">
+                        <li>**Professional Consultation:** This program is a general guideline. Consultation with a medical professional, registered dietitian, or certified fitness expert is highly recommended prior to commencing any new dietary or exercise regimen.</li>
+                        <li>**Individual Variability:** Outcomes may differ among individuals due to unique physiological responses, genetic predispositions, and adherence levels. Progress is typically non-linear, characterized by periods of greater and lesser advancement, and consistent adherence to the established protocols is paramount for achieving sustained results.</li>
+                        <li>**Physiological Responsiveness:** It is crucial to attend diligently to the body's signals, adjusting intensity and volume as required. Adequate rest and recovery are indispensable for muscle repair, energy restoration, and overall physiological adaptation, thereby preventing overtraining and potential injury.</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+
+        <section id="principles" class="mb-12">
+            <h2 class="text-4xl font-semibold section-header"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-cPy2UBX42UeZ8Nj4mY9e7LUU/user-WoSBJbLQ7UetF2ctTxOAwfEH/img-6aYtv9TJfGnPSs1vF3pqJ8ro.png" alt="Principles Icon"> Part 1: Foundational Principles & Daily Practices</h2>
+            <div class="card">
+                <p class="text-lg mb-4">These principles constitute the bedrock of the program and are to be observed consistently on a daily basis, irrespective of the scheduled physical activity. Adherence to these foundational elements creates an optimal internal environment for fat metabolism and overall well-being, paving the way for sustainable progress.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">1. Caloric Deficit</h3>
+                        <p class="text-md">An initial caloric intake of approximately **1700-1900 kcal per day** is suggested, subject to precise adjustment based on individual progress and metabolic response. This calculated deficit is fundamental for successful weight management, ensuring that energy expenditure surpasses energy intake, thereby compelling the body to utilize stored adipose tissue for fuel. A gradual, sustainable deficit is prioritized over drastic reductions to prevent metabolic slowdown and preserve lean muscle mass.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">2. Macronutrient Distribution</h3>
+                        <ul class="list-disc-styled text-md">
+                            <li>**Protein:** 35-40% of calories (e.g., 150-180g). Protein is crucial for promoting satiety, thereby reducing overall caloric consumption, and is indispensable for preserving and building lean muscle mass, which in turn enhances resting metabolic rate.</li>
+                            <li>**Healthy Fats:** 30-35% of calories (e.g., 55-70g). These fats contribute significantly to satiety, helping to regulate appetite, and are integral for optimal hormonal equilibrium, which plays a critical role in metabolic function and weight regulation.</li>
+                            <li>**Complex Carbs:** 25-35% of calories (e.g., 100-150g). These provide sustained energy, support digestive health, and help stabilize blood glucose levels, mitigating the sharp insulin responses that can contribute to fat storage in endomorphs.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">3. Hydration</h3>
+                        <p class="text-md">A daily intake of **2.5-3 liters of water** is essential. Adequate hydration supports numerous physiological processes, including metabolism, nutrient transport, and detoxification. Furthermore, consuming sufficient water can contribute to feelings of fullness, potentially reducing overall food intake.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">4. Sleep Hygiene</h3>
+                        <p class="text-md">Aim for **7-9 hours** of quality sleep per night, as it plays a vital role in hormonal regulation. Insufficient sleep can disrupt ghrelin (hunger hormone) and leptin (satiety hormone) levels, leading to increased appetite and cravings. It can also elevate cortisol, a stress hormone linked to increased abdominal fat storage.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">5. Non-Exercise Activity Thermogenesis (NEAT)</h3>
+                        <p class="text-md">Daily movement should be increased, with a target of **8,000-10,000 steps**. This can be achieved through various means, such as consistently utilizing stairs instead of elevators, incorporating short walks during breaks, parking further from destinations, or integrating more periods of standing throughout the day. Enhancing NEAT significantly contributes to overall daily caloric expenditure beyond structured exercise.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">6. Stress Management</h3>
+                        <p class="text-md">Strategies for mitigating stress, such as engaging in meditation, pursuing hobbies, or spending time in natural environments, are encouraged. Chronic stress can lead to elevated cortisol levels, which may promote fat accumulation, particularly in the abdominal region, and can also increase cravings for calorie-dense foods.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">7. Mindful Consumption</h3>
+                        <p class="text-md">Practicing mindful eating, characterized by slow consumption and attentiveness to hunger and satiety cues, is advised to prevent overconsumption driven by boredom, emotional triggers, or external stimuli. This practice fosters a greater awareness of food intake and promotes healthier eating patterns.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h3 class="text-2xl font-medium text-blue-800 mb-3">8. Progress Monitoring</h3>
+                        <p class="text-md">Regular monitoring of progress is recommended, including weekly weigh-ins (conducted under consistent conditions) and body measurements (waist, chest) every 2-4 weeks. This data provides objective feedback, allowing for informed adjustments to the program and reinforcing adherence through visible results.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <section id="nutrition" class="mb-12">
+            <h2 class="text-4xl font-semibold section-header"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-cPy2UBX42UeZ8Nj4mY9e7LUU/user-WoSBJbLQ7UetF2ctTxOAwfEH/img-1q5TGXLZpIG5jVrQmUp5WffS.png" alt="Nutrition Icon"> Part 2: Carb Cycling & Nutritional Strategy</h2>
+            <div class="card">
+                <p class="text-lg mb-4">This strategy is specifically tailored for individuals with an endomorph somatotype to optimize insulin sensitivity and enhance fat metabolism, leveraging the body's adaptive responses to varying carbohydrate availability. Understanding and implementing these guidelines is crucial for maximizing fat loss while maintaining energy levels.</p>
+
+                <div class="tab-buttons">
+                    <button id="highCarbBtn" class="tab-button active">High-Carb Days</button>
+                    <button id="lowCarbBtn" class="tab-button">Low-Carb Days</button>
+                </div>
+
+                <div id="highCarbContent" class="tab-content active">
+                    <h3 class="text-2xl font-medium text-blue-800 mb-3">High-Carbohydrate Days (2x/week: On Strength Training days)</h3>
+                    <p class="text-md mb-2">The primary objectives are to replenish muscle glycogen reserves, which are crucial for fueling intense training sessions and supporting muscle hypertrophy. These days also serve to potentially stimulate the metabolic rate by signaling energy abundance, thereby mitigating potential metabolic slowdown associated with prolonged lower-carbohydrate intake.</p>
+                    <p class="text-md mb-2">Carbohydrate Intake: The upper end of the designated carbohydrate range (e.g., 120-150g) is to be consumed.</p>
+                    <h4 class="text-xl font-medium text-blue-700 mt-4 mb-2">Food Selections:</h4>
+                    <ul class="list-disc-styled text-md mb-4">
+                        <li>**Grains/Starches:** Measured portions of brown rice (e.g., 1 cup cooked), quinoa (e.g., 1 cup cooked), medium sweet potatoes (e.g., 1 medium), oats (e.g., 1/2 cup dry), and whole-grain bread (e.g., 1-2 slices, in moderation).</li>
+                        <li>**Fruits:** Berries, apples, bananas, and oranges are suitable choices, providing natural sugars and fiber.</li>
+                        <li>**Legumes:** Lentils, chickpeas, and black beans are recommended as excellent sources of complex carbohydrates and fiber.</li>
+                        <li>**Vegetables:** All types of vegetables are permissible, including starchy varieties such as corn, peas, and potatoes, which can contribute to the higher carb target.</li>
+                    </ul>
+                    <h4 class="text-xl font-medium text-blue-700 mt-4 mb-2">Timing Recommendation & Hawker Guidance:</h4>
+                    <p class="text-md mb-2">It is advisable to consume the majority of carbohydrates approximately 1-2 hours prior to and/or immediately following strength training sessions. This strategic timing optimizes energy utilization during exercise and facilitates efficient glycogen replenishment and muscle recovery post-workout.</p>
+                    <p class="text-md">When dining out, selecting a small or regular portion of brown rice (if available) with lean protein, or a modest serving of noodles (e.g., plain beehoon or kway teow with clear soup), is suggested. Prioritize lean protein sources and ensure overall meal balance.</p>
+                </div>
+
+                <div id="lowCarbContent" class="tab-content">
+                    <h3 class="text-2xl font-medium text-blue-800 mb-3">Low-Carbohydrate Days (5x/week: All other days)</h3>
+                    <p class="text-md mb-2">These days are designed to encourage the body's reliance on stored fat for energy (fat oxidation) by limiting readily available glucose. This approach aims to enhance insulin sensitivity, making the body more efficient at processing carbohydrates when they are reintroduced.</p>
+                    <p class="text-md mb-2">Carbohydrate Intake: The lower end of the designated carbohydrate range (e.g., 50-80g) is to be observed. This typically means carbohydrates primarily from non-starchy vegetables.</p>
+                    <h4 class="text-xl font-medium text-blue-700 mt-4 mb-2">Food Selections:</h4>
+                    <ul class="list-disc-styled text-md mb-4">
+                        <li>**Primary Focus:** A strong emphasis should be placed on lean proteins, healthy fats, and a generous intake of non-starchy vegetables.</li>
+                        <li>**Non-Starchy Vegetables:** Broccoli, cauliflower, spinach, kailan, cabbage, bell peppers, asparagus, cucumber, and various leafy greens are encouraged for generous consumption. These provide essential micronutrients and fiber with minimal carbohydrate impact.</li>
+                        <li>**Fruits (in moderation):** Berries (e.g., 1/2 cup) are suitable due to their relatively lower sugar content compared to other fruits.</li>
+                        <li>**Avoidance:** Grains (rice, noodles, bread), starchy vegetables (e.g., potatoes, corn, pumpkin), sugar-sweetened beverages, highly processed foods, and large portions of high-sugar fruits should be minimized or entirely excluded to maintain the low-carb profile.</li>
+                    </ul>
+                    <h4 class="text-xl font-medium text-blue-700 mt-4 mb-2">Hawker Centre Guidance (Crucial for Fat Reduction):</h4>
+                    <ul class="list-disc-styled text-md">
+                        <li>**Chicken Rice:** Requesting "less rice" (or even "no rice" if feasible, substituting with additional cucumber or vegetables) and opting for skinless steamed chicken is strongly advised. Requesting sauces on the side allows for precise control over added oil and sugar content.</li>
+                        <li>**Mixed Veg Rice (Cai Png):** Requesting "half rice" or "no rice" is recommended. Select 2-3 protein-focused dishes (e.g., steamed fish, braised tofu, hard-boiled eggs, lean meat with minimal sauce) and 2-3 green, non-starchy vegetable dishes (e.g., cai xin, kailan, spinach – prioritize stir-fries with reduced oil and avoid thick gravies). Starchy vegetables such as potatoes, pumpkin, and corn, along with fried items, should be avoided.</li>
+                        <li>**Noodle Stalls:** Opt for soup-based noodle dishes. Request "less noodles" and "more ingredients" (e.g., fishball, lean meat, vegetables). Avoid dry versions with heavy, oily sauces, and fried noodle dishes.</li>
+                        <li>**Indian/Malay Stalls:** Consider choices such as tandoori chicken, grilled fish, dhal (lentils are a good source of protein and fiber), and vegetable curries (with careful attention to cream and oil content). Plain rice can be consumed in moderation, or small portions of chapati. Dishes like roti prata, murtabak, and nasi lemak are generally not recommended.</li>
+                        <li>**Beverages:** Ordering "kopi-o kosong" (black coffee without sugar) or "teh-o kosong" (black tea without sugar) is advised. Sweetened condensed milk beverages and other sugary drinks should be avoided.</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+
+        <section id="training" class="mb-12">
+            <h2 class="text-4xl font-semibold section-header"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-cPy2UBX42UeZ8Nj4mY9e7LUU/user-WoSBJbLQ7UetF2ctTxOAwfEH/img-CUehmS9KbZBCP35QVaH8BRrk.png" alt="Training Icon"> Part 3: Training Regimen & Exercise Protocols</h2>
+            <div class="card">
+                <p class="text-lg mb-4">This training schedule is structured into three distinct phases, progressively increasing in intensity and complexity to continuously challenge the body and promote adaptation. The phased approach ensures a gradual build-up, minimizing injury risk and maximizing long-term adherence and physiological benefits.</p>
+                <ul class="list-disc-styled text-md space-y-2 mb-6">
+                    <li>**Warm-up (Prior to each workout):** A 5-10 minute session of light cardiovascular activity (e.g., jogging in place, jumping jacks) should be performed to elevate heart rate and increase blood flow, followed by dynamic stretches (e.g., arm circles, leg swings, torso twists) to improve joint mobility and prepare muscles for exertion.</li>
+                    <li>**Cool-down (Following each workout):** A 5-10 minute session of static stretches, holding each stretch for 20-30 seconds, should be performed to enhance flexibility, reduce muscle soreness, and facilitate recovery.</li>
+                    <li>**Sets/Repetitions for Strength Training:** Unless otherwise specified, perform 3-4 sets of 10-12 repetitions. A rest period of 60-90 seconds should be observed between sets to allow for partial recovery. The Rate of Perceived Exertion (RPE) for strength exercises should be maintained at 6-7, indicating a challenging but manageable effort where 2-4 additional repetitions could theoretically be performed.</li>
+                    <li>**HIIT Structure:** Each HIIT session should consist of 30-45 seconds of maximal effort work, followed by 30-60 seconds of complete rest or very light active recovery. This cycle should be repeated for 4-6 rounds. The RPE for HIIT should be 8-9, signifying a very high level of exertion.</li>
+                    <li>**Progress Monitoring Note:** For comprehensive details on tracking weight, measurements, and performance, please refer to <a href="#progress" class="text-blue-700 underline hover:text-blue-900 transition-colors duration-200">Part 5: Monitoring Your Progress</a>. This section provides the methodology for recording and interpreting your progress data.</li>
+                </ul>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Phase 1: Months 1 & 2 - Foundational Development</h3>
+                <p class="text-lg mb-4">Focus: Establishment of consistent practices, mastery of exercise form, and development of fundamental strength. During this phase, the emphasis is on learning proper movement patterns to build a solid base for future progression.</p>
+                <div class="overflow-x-auto mb-8 card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Focus</th>
+                                <th>Exercise (Duration)</th>
+                                <th>Carb Cycle Level</th>
+                                <th>Progress/Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>**Mon**</td><td>**Strength (A)**</td><td>Full Body Strength (45-60 min)</td><td>**High-Carb**</td><td>**Weekly Weigh-in** (and Monthly Measurements/Photos on 1st Monday of month)</td></tr>
+                            <tr><td>**Tue**</td><td>Active Recovery</td><td>LISS Cardio (30-45 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Wed**</td><td>**HIIT**</td><td>HIIT (15 min) + Core (10 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Thu**</td><td>Rest</td><td>Complete Rest</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Fri**</td><td>**Strength (B)**</td><td>Full Body Strength (45-60 min)</td><td>**High-Carb**</td><td></td></tr>
+                            <tr><td>**Sat**</td><td>Active Recovery</td><td>LISS Cardio (30-45 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Sun**</td><td>Rest</td><td>Complete Rest</td><td>**Low-Carb**</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Phase 2: Months 3 & 4 - Intensification</h3>
+                <p class="text-lg mb-4">Focus: Augmentation of workout intensity through progressive overload and refinement of nutritional strategies. In this phase, the body is challenged more rigorously to stimulate further adaptations in strength and body composition.</p>
+                <div class="overflow-x-auto mb-8 card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Focus</th>
+                                <th>Exercise (Duration)</th>
+                                <th>Carb Cycle Level</th>
+                                <th>Progress/Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>**Mon**</td><td>**Strength (A)**</td><td>Full Body Strength (60 min)</td><td>**High-Carb**</td><td>**Weekly Weigh-in** (and Monthly Measurements/Photos on 1st Monday of month)</td></tr>
+                            <tr><td>**Tue**</td><td>**HIIT**</td><td>HIIT (18-20 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Wed**</td><td>Active Recovery</td><td>LISS Cardio (30-45 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Thu**</td><td>**Strength (B)**</td><td>Full Body Strength (60 min)</td><td>**High-Carb**</td><td></td></tr>
+                            <tr><td>**Fri**</td><td>Active Recovery</td><td>LISS Cardio (30-45 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Sat**</td><td>**HIIT**</td><td>HIIT (18-20 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Sun**</td><td>Rest</td><td>Complete Rest</td><td>**Low-Carb**</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Phase 3: Months 5 & 6 - Consolidation & Maintenance Preparation</h3>
+                <p class="text-lg mb-4">Focus: Reinforcement of sustainable habits, fine-tuning of body composition, and strategic preparation for long-term weight maintenance. This final phase aims to solidify the progress made and equip the individual with sustainable practices.</p>
+                <div class="overflow-x-auto mb-8 card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Focus</th>
+                                <th>Exercise (Duration)</th>
+                                <th>Carb Cycle Level</th>
+                                <th>Progress/Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>**Mon**</td><td>**Strength (Upper)**</td><td>Upper Body Strength (60 min)</td><td>**High-Carb**</td><td>**Weekly Weigh-in** (and Monthly Measurements/Photos on 1st Monday of month)</td></tr>
+                            <tr><td>**Tue**</td><td>**HIIT**</td><td>HIIT (20 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Wed**</td><td>Active Recovery</td><td>LISS Cardio (30-45 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Thu**</td><td>**Strength (Lower + Core)**</td><td>Lower Body + Core Strength (60 min)</td><td>**High-Carb**</td><td></td></tr>
+                            <tr><td>**Fri**</td><td>Active Recovery</td><td>LISS Cardio (45-60 min)</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Sat**</td><td>**HIIT**</td><td>HIIT (20 min) or Light Strength</td><td>**Low-Carb**</td><td></td></tr>
+                            <tr><td>**Sun**</td><td>Rest</td><td>Complete Rest</td><td>**Low-Carb**</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Exercise Protocols (Weeks 1-8 Examples)</h3>
+                <p class="text-lg mb-4">Below are detailed execution steps and guidance for each exercise. Click the links to see video demonstrations. Remember to begin with lighter weights to master form before gradually increasing resistance.</p>
+
+                <div class="space-y-6">
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout A: 1. Goblet Squat</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Goblet Squat">
+                        <p class="text-md mb-2">A foundational compound exercise targeting the lower body.</p>
+                        <p class="text-md mb-2">**Execution:** Hold one dumbbell vertically against the chest. Position feet slightly wider than shoulder-width apart with toes subtly angled outward. Maintain an erect posture with shoulders retracted and core engaged. Initiate the movement by pushing the hips backward as if descending into a chair, simultaneously flexing the knees. Descend until the thighs are parallel to the floor, or to the deepest comfortable position while maintaining a neutral spinal alignment and ensuring heels remain grounded. Ascend by driving through the heels, engaging the glutes at the apex of the movement.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 3-5kg dumbbell.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=MEb1oX7rL4I" target="_blank">Watch Goblet Squat Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout A: 2. Dumbbell Push-ups</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Dumbbell Push-ups">
+                        <p class="text-md mb-2">An effective compound exercise for the upper body, engaging the chest, shoulders, and triceps.</p>
+                        <p class="text-md mb-2">**Execution:** Assume a plank position with hands gripping dumbbells positioned parallel to each other, slightly wider than shoulder-width. The body should form a linear alignment from head to heels. Maintain core engagement and keep elbows slightly adducted towards the torso as the chest is lowered towards the floor. Ascend by pressing through the dumbbells to return to the initial position.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** Bodyweight (dumbbells primarily for wrist support). A modified version performed on the knees is a suitable regression for beginners.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=FjI-084Y1rM" target="_blank">Watch Dumbbell Push-up Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout A: 3. Dumbbell Bent-Over Row</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Dumbbell Bent-Over Row">
+                        <p class="text-md mb-2">A primary exercise for developing back musculature, specifically the latissimus dorsi and rhomboids.</p>
+                        <p class="text-md mb-2">**Execution:** Hold a dumbbell in each hand with palms facing each other. Stand with feet shoulder-width apart and knees slightly flexed. Hinge forward at the hips, maintaining a straight back and engaged core, until the torso is nearly parallel to the floor. Allow the dumbbells to hang directly beneath the shoulders. Elevate the dumbbells towards the chest, adducting the shoulder blades at the peak of the movement. Keep elbows proximate to the body. Slowly lower the dumbbells to the starting position with controlled movement.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 3-7kg dumbbells.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=vVj_e4lK3E8" target="_blank">Watch Dumbbell Bent-Over Row Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout A: 4. Standing Dumbbell Overhead Press</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Standing Dumbbell Overhead Press">
+                        <p class="text-md mb-2">A compound exercise targeting the deltoids (shoulders) and triceps.</p>
+                        <p class="text-md mb-2">**Execution:** Stand erect with a dumbbell in each hand, palms facing forward, positioned at shoulder height (elbows flexed). Engage the core musculature and actively resist excessive lumbar arching. Press the dumbbells directly overhead until the arms are fully extended (avoiding elbow hyperextension). Slowly lower the dumbbells to the initial position with controlled movement.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 2-5kg dumbbells.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=B-J0s5l6iW0" target="_blank">Watch Standing Dumbbell Overhead Press Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout A: 5. Plank (30-60 sec hold)</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Plank">
+                        <p class="text-md mb-2">A fundamental isometric exercise for strengthening the entire core musculature.</p>
+                        <p class="text-md mb-2">**Execution:** Initiate from a push-up position, then lower onto the forearms, maintaining a linear body alignment from head to heels. Engage the core by drawing the navel towards the spine. Prevent hip sagging or excessive elevation.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=ASdvN_Xok6o" target="_blank">Watch Plank Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout B: 1. Dumbbell Romanian Deadlift (RDL)</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Dumbbell Romanian Deadlift">
+                        <p class="text-md mb-2">An excellent exercise for targeting the hamstrings, glutes, and lower back, emphasizing hip hinge mechanics.</p>
+                        <p class="text-md mb-2">**Execution:** Hold a dumbbell in each hand with palms facing the thighs. Stand upright with a slight flexion in the knees (avoiding lockout). Initiate the movement by hinging at the hips, actively pushing the glutes backward, while maintaining a straight back and engaged core. Allow the dumbbells to descend closely along the legs until a stretch is perceived in the hamstrings or just below the knees (ensure back remains straight). Engage the glutes to return to the upright standing position.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 3-7kg dumbbells.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=F0J_J8yWj30" target="_blank">Watch Dumbbell RDL Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout B: 2. Dumbbell Lunges (Alternating Legs)</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Dumbbell Lunges">
+                        <p class="text-md mb-2">A unilateral exercise that enhances leg strength, glute activation, and balance.</p>
+                        <p class="text-md mb-2">**Execution:** Stand erect with a dumbbell in each hand held at the sides. Step forward with one leg, lowering the hips until both knees are flexed at approximately a 90-degree angle. Ensure the front knee is positioned directly above the ankle, and the rear knee hovers just above the floor. Propel through the front foot to return to the initial standing position. Alternate legs for subsequent repetitions.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 2-5kg dumbbells.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=QO8_l7qR2Lw" target="_blank">Watch Dumbbell Lunges Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout B: 3. Single-Arm Dumbbell Row</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Single-Arm Dumbbell Row">
+                        <p class="text-md mb-2">This variation allows for greater focus on unilateral back strength and can help address muscular imbalances.</p>
+                        <p class="text-md mb-2">**Execution:** Place the left knee and left hand on a stable bench (or sturdy chair/table) for support, maintaining a straight back and engaged core. Hold a dumbbell in the right hand, with the arm extended towards the floor. Elevate the dumbbell towards the chest, leading with the elbow, while actively adducting the shoulder blade. Slowly lower the dumbbell to the initial position with controlled movement. Complete all repetitions on one side before switching to the other.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 5-10kg dumbbell.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=roD8R_Q6X4c" target="_blank">Watch Single-Arm Dumbbell Row Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout B: 4. Dumbbell Bicep Curls</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Dumbbell Bicep Curls">
+                        <p class="text-md mb-2">An isolation exercise primarily targeting the biceps brachii.</p>
+                        <p class="text-md mb-2">**Execution:** Stand erect with a dumbbell in each hand, palms facing forward, arms extended downwards at the sides. Keeping elbows adducted close to the body, curl the dumbbells upwards towards the shoulders, engaging the biceps at the peak of the contraction. Slowly lower the dumbbells to the initial position with controlled movement.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 2-5kg dumbbells.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=d_Kz_hI_o64" target="_blank">Watch Dumbbell Bicep Curls Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">Workout B: 5. Dumbbell Triceps Extensions (Overhead)</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Dumbbell Triceps Extensions">
+                        <p class="text-md mb-2">An isolation exercise effectively targeting the triceps brachii.</p>
+                        <p class="text-md mb-2">**Execution:** While seated or standing, hold one dumbbell with both hands (cupping one end) directly overhead, with arms extended. Keeping elbows directed forward and adducted, slowly lower the dumbbell behind the head by flexing the elbows. Extend the arms to press the dumbbell back to the initial position, engaging the triceps.</p>
+                        <p class="text-md mb-2">**Initial Resistance Suggestion:** 5-10kg dumbbell.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=tI99Fw3u924" target="_blank">Watch Dumbbell Triceps Extensions Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">HIIT Workout Examples: Burpees</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Burpees">
+                        <p class="text-md mb-2">A highly effective full-body explosive exercise that rapidly elevates heart rate.</p>
+                        <p class="text-md mb-2">**Execution:** Commence from a standing position. Flex at the hips and knees to place hands on the floor. Propel feet backward into a plank position. (Optional) Perform a push-up. Jump feet forward to the hands. Ascend to a standing position and execute an explosive jump, clapping hands overhead.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=dZgVxmf6jkA" target="_blank">Watch Burpees Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">HIIT Workout Examples: Mountain Climbers</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Mountain Climbers">
+                        <p class="text-md mb-2">A dynamic core and cardiovascular exercise that also engages the shoulders.</p>
+                        <p class="text-md mb-2">**Execution:** Assume a plank position with hands positioned directly beneath the shoulders. Maintain core engagement and a straight back. Rapidly drive knees towards the chest, alternating legs, simulating a running motion in place.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=nmwGFXGTgqM" target="_blank">Watch Mountain Climbers Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">HIIT Workout Examples: Jump Squats</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/2" alt="Jump Squats">
+                        <p class="text-md mb-2">A powerful plyometric exercise for the lower body, enhancing leg power and cardiovascular fitness.</p>
+                        <p class="text-md mb-2">**Execution:** Begin from a standard squat stance (feet shoulder-width apart, toes slightly angled outward). Descend into a squat. Explode upwards, initiating a jump from the ground. Land softly back into a squat position to absorb the impact.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=A8wYxU-yqks" target="_blank">Watch Jump Squats Tutorial</a></p>
+                    </div>
+
+                    <div class="card exercise-detail">
+                        <h4 class="text-2xl font-semibold text-blue-700 mb-2">HIIT Workout Examples: High Knees</h4>
+                        <img src="https://storage.googleapis.com/gweb-interstitial/image_generation_content/3" alt="High Knees">
+                        <p class="text-md mb-2">A vigorous cardiovascular exercise that significantly elevates heart rate and engages the lower body.</p>
+                        <p class="text-md mb-2">**Execution:** Stand erect. Perform a running motion in place, driving knees upwards towards the chest as high and as rapidly as feasible. Incorporate arm pumping synchronized with the leg movement.</p>
+                        <p class="text-md">**Video Reference:** <a href="https://www.youtube.com/watch?v=OAJ2s739-1E" target="_blank">Watch High Knees Tutorial</a></p>
+                    </div>
+                </div>
+
+                <h3 class="text-3xl font-medium text-blue-800 mt-8 mb-4">Progression and Subsequent Phases (Months 3-6)</h3>
+                <ul class="list-disc-styled text-md">
+                    <li>**Weeks 9-16 (Phase 2):** The objective is to **increase the resistance** for strength exercises or augment the number of repetitions (if 12 repetitions are consistently achieved with ease). This embodies the principle of progressive overload, vital for continued muscular adaptation. For HIIT, consider extending the duration of work intervals (e.g., 45-60 seconds) or increasing the number of rounds. The introduction of new exercise variations may also be explored to maintain challenge and engagement.</li>
+                    <li>**Weeks 17-24 (Phase 3):** More advanced strength exercises may be incorporated to further diversify the training stimulus. The strength training regimen could be diversified into upper/lower body splits for more targeted muscular development and recovery. Maintaining HIIT intensity remains crucial for sustaining metabolic benefits and fat oxidation.</li>
+                </ul>
+            </div>
+            
+        </section>
+
+        <section id="progress" class="mb-12">
+            <h2 class="text-4xl font-semibold section-header"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-cPy2UBX42UeZ8Nj4mY9e7LUU/user-WoSBJbLQ7UetF2ctTxOAwfEH/img-jM9ugB8L9K7pR0aC4VMyJLgM.png" alt="Progress Tracking Icon"> Part 5: Monitoring Program Adherence & Progress</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Consistent tracking is instrumental for sustaining motivation and facilitating necessary program adjustments. This section outlines objective and subjective methods for evaluating progress, providing a holistic view of your journey.</p>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Progress Monitoring Modalities</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h4 class="text-2xl font-medium text-blue-700 mb-3">1. Weekly Weigh-ins</h4>
+                        <p class="text-md mb-2">**Frequency:** Once per week (e.g., every Monday morning).</p>
+                        <p class="text-md mb-2">**Methodology:** Conduct weighing at a consistent time, under uniform conditions (e.g., first thing in the morning, post-restroom use, minimal attire, prior to food/beverage consumption). This standardization minimizes variability and provides a more accurate representation of weight trends.</p>
+                        <p class="text-md">**Emphasis:** Focus on the longitudinal *trend* observed over several weeks, rather than daily fluctuations, which can be influenced by factors such as hydration, recent food intake, and glycogen levels. A consistent downward trend is the primary indicator of progress.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h4 class="text-2xl font-medium text-blue-700 mb-3">2. Body Measurements</h4>
+                        <p class="text-md mb-2">**Frequency:** Every 2-4 weeks.</p>
+                        <p class="text-md mb-2">**Measurement Sites:** Waist, Hips, Chest. Optional: Thigh, Arm. Utilize a flexible tape measure, ensuring a snug but non-constrictive application. Consistent measurement points are crucial for accurate comparison.</p>
+                        <p class="text-md">**Benefit:** Body measurements often reveal changes in body composition (fat loss, muscle gain) that may not be apparent on the scale, providing valuable "non-scale victories" that can be highly motivating.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h4 class="text-2xl font-medium text-blue-700 mb-3">3. Progress Photography</h4>
+                        <p class="text-md mb-2">**Frequency:** Monthly (e.g., at the commencement of each month).</p>
+                        <p class="text-md mb-2">**Methodology:** Capture photographs under consistent lighting, maintaining uniform posture (e.g., frontal, lateral, posterior views), and similar attire.</p>
+                        <p class="text-md">**Benefit:** Visual documentation frequently reveals aesthetic transformations not evident solely from scale readings or measurements, serving as a powerful motivational tool and concrete evidence of body recomposition.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                        <h4 class="text-2xl font-medium text-blue-700 mb-3">4. Performance Tracking</h4>
+                        <p class="text-md mb-2">**Strength Training:** Maintain a precise record (e.g., in a dedicated notebook or digital application) of the resistance lifted and repetitions performed for each exercise. The objective is to progressively increase resistance or repetitions over time (Progressive Overload), which is a direct indicator of increasing strength and muscular adaptation.</p>
+                        <p class="text-md">**HIIT/LISS:** Document the duration, specific exercises performed, and subjective exertion level (RPE). Regularly assess whether greater intensity or duration can be achieved, indicating improved cardiovascular fitness and endurance.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Simulated Weight Progress</h3>
+                <p class="text-lg mb-4">This chart illustrates a hypothetical weight loss progression over 6 months, assuming consistent adherence to the program. Use this as an example of how your own weekly weigh-in data could trend.</p>
+                <div class="chart-container">
+                    <canvas id="weightChart"></canvas>
+                </div>
+
+                <h3 class="text-3xl font-medium text-blue-800 mb-4">Daily & Weekly Compliance Checklist</h3>
+                <p class="text-lg mb-4">This interactive checklist serves as a concise tool to ensure adherence to the program's components. Mark items as completed to track your consistency.</p>
+                <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                    <h4 class="text-2xl font-medium text-blue-700 mb-3">Daily Compliance Checklist:</h4>
+                    <ul id="dailyChecklist" class="space-y-2 text-lg">
+                        <li class="checklist-item"><label><input type="checkbox"><span>Nutrition: Stayed within target calorie/macro range?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>Hydration: Drank 2.5-3 liters of water?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>Sleep: Aimed for 7-9 hours of sleep?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>NEAT: Hit step goal or increased daily movement?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>Mindful Eating: Ate slowly, paid attention to cues?</span></label></li>
+                    </ul>
+                    <h4 class="text-2xl font-medium text-blue-700 mt-6 mb-3">Weekly Compliance Checklist:</h4>
+                    <ul id="weeklyChecklist" class="space-y-2 text-lg">
+                        <li class="checklist-item"><label><input type="checkbox"><span>Strength Training: Completed 2-3 scheduled sessions?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>HIIT: Completed 1-2 scheduled HIIT sessions?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>LISS/Active Recovery: Completed 2-3 scheduled LISS/active recovery sessions?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>Weekly Weigh-in: Was the weekly weigh-in conducted?</span></label></li>
+                        <li class="checklist-item"><label><input type="checkbox"><span>Review Progress: Reviewed weight trend, measurements, photos?</span></label></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+
+        <section id="reminders" class="mb-12">
+            <h2 class="text-4xl font-semibold section-header"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-cPy2UBX42UeZ8Nj4mY9e7LUU/user-WoSBJbLQ7UetF2ctTxOAwfEH/img-kvdsQYZx0ZQ5tYwXHOnlbkYH.png" alt="Reminders Icon"> Part 6: Critical Considerations for Sustained Adherence</h2>
+            <div class="card">
+                <div class="bg-blue-50 p-6 rounded-lg shadow-sm mb-6 border border-blue-200">
+                    <h3 class="text-2xl font-medium text-blue-800 mb-3">Addressing Program Deviations:</h3>
+                    <ul class="list-disc-styled text-md">
+                        <li>Should a workout session or specific dietary objective be missed on a given day, it is imperative **not to succumb to discouragement or attempt to compensate excessively** on subsequent days. It is crucial to recognize that consistent adherence over the long term is of far greater significance than isolated adherence on any single day.</li>
+                        <li>It is **strongly advised against doubling the intensity or duration of workouts** on subsequent days, or implementing drastic caloric reductions to compensate for missed targets. Such compensatory behaviors can precipitate physiological and psychological distress, potentially leading to burnout, an increased risk of injury, heightened hunger, and may ultimately undermine long-term adherence to the program.</li>
+                        <li>The appropriate course of action is to **simply resume the program** with the next scheduled activity or meal. A brief, objective reflection on the underlying reason for the deviation (e.g., scheduling conflicts, motivational factors, inadequate meal preparation) can be beneficial for future planning and preventing recurrence. The physiological response to a weight management program is primarily governed by consistent habits observed over weeks and months, rather than isolated incidents or attempts at immediate rectification.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                    <h3 class="text-2xl font-medium text-blue-800 mb-3">Key Principles for Long-Term Success:</h3>
+                    <ul class="list-disc-styled text-md">
+                        <li>**Consistency as a Cornerstone:** This program is meticulously designed for sustainable progress. Diligent and consistent adherence to its principles is directly correlated with the achievement of desired outcomes. Sporadic efforts, even if intense, are unlikely to yield the same sustained benefits as a regular, disciplined approach.</li>
+                        <li>**Interpreting Physiological Signals:** It is essential to be attentive to indicators of fatigue, discomfort, or overtraining. Adequate rest periods should be observed when necessary, as recovery is an integral component of progress and injury prevention. Pushing beyond the body's capacity without sufficient recovery can be counterproductive.</li>
+                        <li>**Embracing the Journey:** Cultivating enjoyment in the process of enhancing physical strength and overall well-being is encouraged. Focusing solely on numerical outcomes can sometimes be demotivating. Acknowledgment of incremental achievements, such as increased energy levels, improved sleep quality, better-fitting clothing, and enhanced physical capabilities, can serve as powerful motivators throughout the journey.</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+
+    </main>
+
+    <footer class="bg-gradient-to-r from-blue-900 to-blue-600 text-white p-6 text-center text-sm shadow-inner">
+        <div class="container">
+            &copy; 2025 Comprehensive Weight Management Program. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Smooth scrolling for "Back to Top" links
+            document.querySelectorAll('.back-to-top a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Tab functionality for Carb Cycling
+            const highCarbBtn = document.getElementById('highCarbBtn');
+            const lowCarbBtn = document.getElementById('lowCarbBtn');
+            const highCarbContent = document.getElementById('highCarbContent');
+            const lowCarbContent = document.getElementById('lowCarbContent');
+
+            function showTab(tabToShow, tabToHide, btnToShow, btnToHide) {
+                tabToShow.classList.add('active');
+                tabToHide.classList.remove('active');
+                btnToShow.classList.add('active');
+                btnToHide.classList.remove('active');
+            }
+
+            highCarbBtn.addEventListener('click', () => showTab(highCarbContent, lowCarbContent, highCarbBtn, lowCarbBtn));
+            lowCarbBtn.addEventListener('click', () => showTab(lowCarbContent, highCarbContent, lowCarbBtn, highCarbBtn));
+
+
+            // Chart.js for Weight Progress
+            const weightData = {
+                labels: Array.from({length: 24}, (_, i) => `Week ${i + 1}`),
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: [
+                        74.0, 73.5, 73.0, 72.6, 72.1, 71.7, 71.2, 70.8, 70.3, 69.9, 69.4, 69.0,
+                        68.6, 68.2, 67.8, 67.4, 67.0, 66.6, 66.3, 66.0, 65.7, 65.4, 65.1, 64.8
+                    ],
+                    borderColor: 'var(--secondary-blue)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)', /* secondary-blue with transparency */
+                    fill: true,
+                    tension: 0.3
+                }]
+            };
+
+            const ctx = document.getElementById('weightChart').getContext('2d');
+            const weightChart = new Chart(ctx, {
+                type: 'line',
+                data: weightData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: 'var(--text-dark)'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].label;
+                                },
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y + ' kg';
+                                    return label;
+                                }
+                            },
+                            bodyFont: {
+                                size: 14
+                            },
+                            titleFont: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            padding: 10,
+                            boxPadding: 5,
+                            displayColors: false,
+                            backgroundColor: 'var(--primary-blue)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: 'var(--secondary-blue)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Week',
+                                color: 'var(--text-dark)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                color: 'var(--text-dark)',
+                                callback: function(value, index, values) {
+                                    const originalLabel = this.getLabelForValue(value);
+                                    if (originalLabel.length > 16) {
+                                        const words = originalLabel.split(' ');
+                                        let lines = [];
+                                        let currentLine = '';
+                                        words.forEach(word => {
+                                            if ((currentLine + word).length > 16 && currentLine !== '') {
+                                                lines.push(currentLine.trim());
+                                                currentLine = word;
+                                            } else {
+                                                currentLine += (currentLine === '' ? '' : ' ') + word;
+                                            }
+                                        });
+                                        lines.push(currentLine.trim());
+                                        return lines;
+                                    }
+                                    return originalLabel;
+                                }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Weight (kg)',
+                                color: 'var(--text-dark)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            beginAtZero: false,
+                            ticks: {
+                                color: 'var(--text-dark)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Checklist functionality (Save/Load state)
+            function saveChecklistState(id, checkboxes) {
+                const state = Array.from(checkboxes).map(cb => cb.checked);
+                localStorage.setItem(id, JSON.stringify(state));
+            }
+
+            function loadChecklistState(id, checkboxes) {
+                const savedState = localStorage.getItem(id);
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    checkboxes.forEach((cb, index) => {
+                        if (state[index] !== undefined) {
+                            cb.checked = state[index];
+                        }
+                    });
+                }
+            }
+
+            const dailyCheckboxes = document.querySelectorAll('#dailyChecklist input[type="checkbox"]');
+            const weeklyCheckboxes = document.querySelectorAll('#weeklyChecklist input[type="checkbox"]');
+
+            loadChecklistState('dailyChecklist', dailyCheckboxes);
+            loadChecklistState('weeklyChecklist', weeklyCheckboxes);
+
+            dailyCheckboxes.forEach(cb => {
+                cb.addEventListener('change', () => saveChecklistState('dailyChecklist', dailyCheckboxes));
+            });
+            weeklyCheckboxes.forEach(cb => {
+                cb.addEventListener('change', () => saveChecklistState('weeklyChecklist', weeklyCheckboxes));
+            });
+        });
+    </script>
+</body>
+</html>
